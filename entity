@@ -1,0 +1,25 @@
+package registrationone.demofivetwo.Entity;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
+
+@Entity
+public class Employee {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)//identity to auto changed last
+    private Long id;
+
+    @NotBlank(message = "Employee name is required")
+    private String empName;
+
+    @NotBlank(message = "Employee number is required")
+    private String empNO;
+
+    public Employee(Long id, String empName, String empNO) {
+        this.id = id;
+        this.empName = empName;
+        this.empNO = empNO;
+    }
