@@ -1,0 +1,21 @@
+@RestController
+@RequestMapping("/registration")
+public class RegistrationController {
+
+    @Autowired
+    private EmployeeService employeeService;
+
+    @PostMapping("/register")
+    public ResponseEntity registerEmployee(@RequestBody EmployeeRequest request) {
+        // It takes an EmployeeRequest object as the request body, and it returns a ResponseEntity object.
+        // The @RequestBody annotation indicates that the EmployeeRequest object
+        // should be created from the JSON data in the request body.
+        try {
+            Employee employee = employeeService.registerEmployee(request.getEmpNO(), request.getEmpName());
+            return ResponseEntity.ok(employee);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while processing your request.");
+        }
+    }
